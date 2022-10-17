@@ -1,0 +1,32 @@
+{
+   "foods":[
+      {
+         "name":"Hamburger",
+         "image":"https://beptruong.edu.vn/wp-content/uploads/2013/04/hamburger-han-quoc-thanh-pham-ngon-600x400.jpg",
+         "detail1":"Món ăn tiêu biểu của người Mỹ",
+         "detail2":"Món ăn nhanh tiện dụng",
+         "price":"39.000 đ"
+      },
+      {
+         "name":"Sushi",
+         "image":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/300px-Sushi_platter.jpg",
+         "detail1":"Là một món ăn Nhật Bản gồm cơm trộn giấm (shari) kết hợp với các nguyên liệu khác (neta).",
+         "detail2":"Nguyên liệu chính mà tất cả các loại sushi đều có là shari. Neta phổ biến nhất là hải sản. Thịt sống cắt lát gọi riêng là sashimi.",
+         "price":"50.000 đ"
+      },
+      {
+         "name":"Ramen",
+         "image":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Shoyu_Ramen.jpg/1200px-Shoyu_Ramen.jpg",
+         "detail1":"Là một món mì của Nhật Bản.",
+         "detail2":"Món này bao gồm mì làm từ lúa mì của Trung Quốc được phục vụ với thịt hoặc (thỉnh thoảng) nước dùng làm từ cá, thường có hương vị với nước tương hoặc miso, và sử dụng các lớp phủ như thịt lợn thái mỏng (叉 焼, xá xíu), nori (rong biển sấy khô), menma, và hành lá.",
+         "price":"99.000 đ"
+      },
+      {
+         "name":"Bánh Mì VN",
+         "image":"https://images.foody.vn/res/g104/1030781/prof/s640x400/foody-upload-api-foody-mobile-foody-upload-api-foo-200619091742.jpg",
+         "detail1":"Là một loại thức ăn đường phố của Việt Nam bao gồm vỏ là một ổ bánh mì nướng có da giòn, ruột mềm; bên trong là phần nhân.",
+         "detail2":"Loại bánh mì làm vỏ thực tế là kiểu baguette do người Pháp đem vào Miền Nam Việt Nam từ những thế kỷ trước đây, sau này, lan ra khắp Miền Trung và Miền Nam, đặc biệt thịnh hành ở Sài Gòn. Trong quá trình cải tiến, người Sài Gòn đã chế biến baguette lại thành kiểu bánh mì nhỏ và ngắn hơn chỉ còn khoảng 30–40 cm, và ruột thì rỗng hơn để có thể đưa phần nhân vào đó. Tùy thuộc vào thành phần nhân được kẹp bên trong mà bánh mì kẹp có tên gọi khác nhau.",
+         "price":"15.000 đ"
+      }
+   ]
+}

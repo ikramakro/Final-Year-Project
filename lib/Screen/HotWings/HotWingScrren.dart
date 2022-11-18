@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fyp/Components/ReusebleContainer.dart';
+import 'package:fyp/UI/Components/ReusebleContainer.dart';
 
 class HotWingScreen extends StatefulWidget {
   const HotWingScreen({super.key});
@@ -22,16 +23,33 @@ class _HotWingScreenState extends State<HotWingScreen> {
     '20 KFC Hotwings',
     '20 Hotwings'
   ];
+  final ref = FirebaseFirestore.instance.collection('HotWings').snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('HotWings Screen')),
-      body: GridView.builder(
-        itemCount: name.length,
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200, crossAxisSpacing: 10, mainAxisSpacing: 10),
-        itemBuilder: (context, index) {
-          return ReusebleContainer(path: path[index], name: name[index]);
+      body: StreamBuilder<QuerySnapshot>(
+        stream: ref,
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
+          if (snapshot.hasError) return const Text('Some Error');
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 220,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 10),
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              return ReusebleContainer(
+                name: snapshot.data!.docs[index]['Name'],
+                path: snapshot.data!.docs[index]['Image'].toString(),
+                index: index,
+                price: snapshot.data!.docs[index]['Price'],
+              );
+            },
+          );
         },
       ),
     );

@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fyp/Components/ReusebleContainer.dart';
+import 'package:fyp/UI/Components/ReusebleContainer.dart';
 
 class PizzaScreen extends StatefulWidget {
   const PizzaScreen({super.key});
@@ -9,49 +10,33 @@ class PizzaScreen extends StatefulWidget {
 }
 
 class _PizzaScreenState extends State<PizzaScreen> {
-  List path = [
-    'Assets/Images/Pizza/ChicagoPizza.png',
-    'Assets/Images/Pizza/DessertPizza.png',
-    'Assets/Images/Pizza/DetroitPizza.png',
-    'Assets/Images/Pizza/GreekPizza.png',
-    'Assets/Images/Pizza/HawaiianPizza.png',
-    'Assets/Images/Pizza/NeapolitanPizza.png',
-    'Assets/Images/Pizza/NewYorkPizza.png',
-    'Assets/Images/Pizza/PanPizza.png',
-    'Assets/Images/Pizza/SicilianPizza.png',
-    'Assets/Images/Pizza/SquarePizza.png',
-    'Assets/Images/Pizza/BagelPizza.png',
-    'Assets/Images/Pizza/BreakfastPizza.png',
-    'Assets/Images/Pizza/CaliforniaPizza.png',
-  ];
-  List namelist = [
-    'BagelPizza',
-    'BreakfastPizza',
-    'CaliforniaPizza',
-    'ChicagoPizza',
-    'DessertPizza',
-    'DetroitPizza',
-    'GreekPizza',
-    'HawaiianPizza',
-    'NeapolitanPizza',
-    'NewYorkPizza',
-    'PanPizza',
-    'SicilianPizza',
-    'SquarePizza'
-  ];
+  final ref = FirebaseFirestore.instance.collection('Pizza').snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Pizza Screen')),
-      body: GridView.builder(
-        itemCount: namelist.length,
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-        ),
-        itemBuilder: (context, index) {
-          return ReusebleContainer(path: path[index], name: namelist[index]);
+      body: StreamBuilder<QuerySnapshot>(
+        stream: ref,
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
+          if (snapshot.hasError) return const Text('Some Error');
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 220,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 10),
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              return ReusebleContainer(
+                name: snapshot.data!.docs[index]['Name'],
+                path: snapshot.data!.docs[index]['Image'].toString(),
+                index: index,
+                price: snapshot.data!.docs[index]['Price'],
+              );
+            },
+          );
         },
       ),
     );

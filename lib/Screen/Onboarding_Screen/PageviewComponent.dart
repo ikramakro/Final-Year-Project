@@ -1,16 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fyp/Components/MyText.dart';
+import 'package:fyp/UI/Components/MyText.dart';
+import 'package:lottie/lottie.dart';
 
 class PageviewComponent extends StatelessWidget {
-  String imgpath, text, description;
+  String imgpath, text;
 
   PageviewComponent({
     Key? key,
     required this.imgpath,
     required this.text,
-    required this.description,
   }) : super(key: key);
 
   @override
@@ -21,14 +21,7 @@ class PageviewComponent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 320.h,
-            width: 320.w,
-            child: Image(
-              image: AssetImage(imgpath),
-              fit: BoxFit.fill,
-            ),
-          ),
+          SizedBox(height: 320.h, width: 320.w, child: Lottie.network(imgpath)),
           SizedBox(
             height: 20.h,
           ),
@@ -37,7 +30,6 @@ class PageviewComponent extends StatelessWidget {
             size: 22,
             weight: FontWeight.bold,
           ),
-          MyText(text: description)
         ],
       ),
     );

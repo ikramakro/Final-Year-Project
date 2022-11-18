@@ -1,9 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fyp/Screen/auth/LoginScreen.dart';
+import 'package:fyp/Screen/auth/SingupScreen.dart';
 import 'Screen/Home_Screen/HomeScreen.dart';
-import 'Screen/Login And SignUp/Splash Screen.dart';
+import 'Screen/Onboarding_Screen/Onboarding_Screen.dart';
+import 'Screen/auth/Splash Screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

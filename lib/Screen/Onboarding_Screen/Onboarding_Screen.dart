@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:fyp/Screen/Login%20And%20SignUp/LoginScreen.dart';
+import 'package:fyp/Util/Colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../Home_Screen/HomeScreen.dart';
@@ -22,37 +22,55 @@ class _Onboarding_ScreenState extends State<Onboarding_Screen> {
   bool onlastpage = false;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         children: [
           PageView(
             controller: _controller,
             //TODO
             onPageChanged: (value) {
               setState(() {
-                onlastpage = (value == 2);
+                onlastpage = (value == 5);
               });
             },
             children: [
               PageviewComponent(
-                  imgpath: 'Assets/Images/voice_assistance.png',
-                  text: 'Search your food with your voice',
-                  description: 'khan'),
+                imgpath:
+                    'https://assets8.lottiefiles.com/packages/lf20_piehsefv.json',
+                text: 'Activate Your Assistance by Taping the Button Below ',
+              ),
               PageviewComponent(
-                  imgpath: 'Assets/Images/Voice.png',
-                  text: 'Search your food',
-                  description: 'khan'),
+                imgpath:
+                    'https://assets6.lottiefiles.com/private_files/lf30_uetcyfgk.json',
+                text: 'Meet With Your Voice Assistance ("ALAN")',
+              ),
               PageviewComponent(
-                  imgpath: 'Assets/Images/Voice ass hand.png',
-                  text: 'Search your food',
-                  description: 'khan'),
+                imgpath:
+                    'https://assets8.lottiefiles.com/private_files/lf30_ykonjgrr.json',
+                text: 'Navigate between the Screen',
+              ),
+              PageviewComponent(
+                imgpath:
+                    'https://assets1.lottiefiles.com/private_files/lf30_uSbQXr.json',
+                text: 'Search Your Food With Your Voice',
+              ),
+              PageviewComponent(
+                imgpath:
+                    'https://assets2.lottiefiles.com/datafiles/mJgqrjZG0XgEPTG/data.json',
+                text: 'Fast Dilvery Opption ',
+              ),
+              PageviewComponent(
+                imgpath:
+                    'https://assets9.lottiefiles.com/packages/lf20_q5z1w81j.json',
+                text: 'Dilver To your Location On Time',
+              ),
             ],
           ),
           Container(
             alignment: const Alignment(0.0, 0.90),
             child: SmoothPageIndicator(
               controller: _controller,
-              count: 3,
+              count: 6,
               effect: const WormEffect(dotHeight: 10, dotWidth: 10),
             ),
           ),
@@ -60,27 +78,46 @@ class _Onboarding_ScreenState extends State<Onboarding_Screen> {
             top: 40,
             left: 285,
             child: OutlinedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(AppColors.Maincolor),
+                  foregroundColor: MaterialStateProperty.all(Colors.white)),
               onPressed: () {
-                _controller.jumpToPage(2);
+                _controller.jumpToPage(5);
               },
               child: const Text('Skip'),
             ),
           ),
           Positioned(
-              top: 670,
-              left: 285,
-              child: OutlinedButton(
-                  onPressed: () {
-                    onlastpage
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomeScreen()))
-                        : _controller.nextPage(
-                            duration: const Duration(seconds: 2),
-                            curve: Curves.linear);
-                  },
-                  child: onlastpage ? const Text('Done') : const Text('Next')))
+              top: 650,
+              left: 155,
+              child: GestureDetector(
+                child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                        color: AppColors.Maincolor,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: onlastpage
+                        ? const Icon(
+                            Icons.done,
+                            color: Colors.white,
+                          )
+                        : const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          )),
+                onTap: () {
+                  onlastpage
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()))
+                      : _controller.nextPage(
+                          duration: const Duration(seconds: 2),
+                          curve: Curves.linear);
+                },
+              ))
         ],
       ),
     );

@@ -1,10 +1,13 @@
+import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fyp/UI/Components/MyText.dart';
 import 'package:fyp/Screen/FrenchFry/FrenchFry.dart';
 import 'package:fyp/Screen/HotWings/HotWingScrren.dart';
 import 'package:fyp/Util/Colors.dart';
+import 'package:fyp/main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import '../../UI/Components/ReusebleContainer.dart';
 import '../BurgerScreen/BurgerScreen.dart';
@@ -18,9 +21,117 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good Morning';
+    }
+    if (hour < 17) {
+      return 'Good Afternoon';
+    }
+    return 'Good Evening';
+  }
+
+  final ref = FirebaseFirestore.instance.collection('User');
+  final user = FirebaseAuth.instance.currentUser;
+  GlobalKey<ScaffoldState> scafflodkey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: scafflodkey,
+        drawer: Drawer(
+            child: ListView(
+          children: [
+            FutureBuilder<DocumentSnapshot>(
+              future: ref.doc(user!.uid).get(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return const Text("Something went wrong");
+                }
+
+                if (snapshot.hasData && !snapshot.data!.exists) {
+                  return const Text("Document does not exist");
+                }
+
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Map<String, dynamic> data =
+                      snapshot.data!.data() as Map<String, dynamic>;
+                  return Container(
+                    height: 150.h,
+                    decoration: const BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              height: 80.h,
+                              child: Image.asset('Assets/Icons/burger.png')),
+                          MyText(
+                            text: '${data['Name']}',
+                            weight: FontWeight.bold,
+                            size: 20,
+                          ),
+                          MyText(
+                            text: '${data['Email']}',
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return const Text("loading");
+              },
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.home,
+                color: Colors.black,
+              ),
+              title: MyText(
+                text: 'Home',
+                weight: FontWeight.bold,
+              ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.keyboard_voice,
+                color: Colors.black,
+              ),
+              title: MyText(
+                text: 'Alan Command',
+                weight: FontWeight.bold,
+              ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.person,
+                color: Colors.black,
+              ),
+              title: MyText(
+                text: 'About us',
+                weight: FontWeight.bold,
+              ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.logout,
+                color: Colors.black,
+              ),
+              title: MyText(
+                text: 'Log Out',
+                weight: FontWeight.bold,
+              ),
+            ),
+          ],
+        )),
         body: ListView(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,34 +144,61 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
                 child: Column(children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const CircleAvatar(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MyText(
-                            text: 'Good Morining',
-                            color: Colors.grey,
-                          ),
-                          MyText(
-                            text: 'Amile Worden',
-                            size: 20,
-                            weight: FontWeight.bold,
-                          )
-                        ],
-                      ),
-                      Chip(
-                        label: const Text('Location'),
-                        avatar: const Icon(
-                          Icons.place,
-                          color: AppColors.Maincolor,
+                      InkWell(
+                          onTap: () {
+                            scafflodkey.currentState!.openDrawer();
+                          },
+                          child: SizedBox(
+                              height: 50.h,
+                              width: 50.w,
+                              child: Image.asset('Assets/Icons/burgerc.png'))),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MyText(
+                              text: greeting(),
+                              color: Colors.grey,
+                              size: 16,
+                              weight: FontWeight.bold,
+                            ),
+                            FutureBuilder<DocumentSnapshot>(
+                              future: ref.doc(user!.uid).get(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                if (snapshot.hasError) {
+                                  return const Text("Something went wrong");
+                                }
+
+                                if (snapshot.hasData &&
+                                    !snapshot.data!.exists) {
+                                  return const Text("Document does not exist");
+                                }
+
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
+                                  return MyText(
+                                    text: data['Name'],
+                                    size: 20,
+                                    weight: FontWeight.bold,
+                                  );
+                                }
+
+                                return const Text("loading");
+                              },
+                            )
+                          ],
                         ),
-                        backgroundColor: Colors.white,
-                        padding: EdgeInsets.only(
-                            top: 10.h, bottom: 10.h, left: 8.w, right: 8.w),
-                      )
+                      ),
+                      Badge(
+                        badgeContent: const Text('0'),
+                        child: const Icon(Icons.shopping_cart)),
                     ],
+
                   ),
                   SizedBox(
                     height: 30.h,
@@ -140,7 +278,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PizzaScreen()));
+                                      builder: (context) =>
+                                          const PizzaScreen()));
                             }),
                             child: CircleAvatar(
                                 backgroundColor:

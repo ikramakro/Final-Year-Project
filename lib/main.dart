@@ -1,10 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fyp/Screen/auth/LoginScreen.dart';
-import 'package:fyp/Screen/auth/SingupScreen.dart';
-import 'Screen/Home_Screen/HomeScreen.dart';
-import 'Screen/Onboarding_Screen/Onboarding_Screen.dart';
+import 'package:fyp/DetialScreen.dart';
+import 'package:fyp/Screen/Home_Screen/HomeScreen.dart';
 import 'Screen/auth/Splash Screen.dart';
 
 void main() async {

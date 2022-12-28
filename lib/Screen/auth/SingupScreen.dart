@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -182,6 +183,13 @@ class _SignupScreenState extends State<SignupScreen> {
                               password:
                                   confirmpasswordcontroler.text.toString())
                           .then((value) {
+                        final ref =
+                            FirebaseFirestore.instance.collection('User');
+                        ref.doc(value.user!.uid).set({
+                          'Name': namecontroler.text.toUpperCase().toString(),
+                          'Email': emailcontroler.text.toString()
+                        });
+
                         toastMasseges('user created');
                         Navigator.push(
                             context,

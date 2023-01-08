@@ -11,6 +11,8 @@ class ReusebleContainer extends StatefulWidget {
   IconData? icon;
   VoidCallback? ontap;
   VoidCallback? favriteontap;
+  VoidCallback? cartontap;
+
   ReusebleContainer(
       {Key? key,
       required this.path,
@@ -19,8 +21,8 @@ class ReusebleContainer extends StatefulWidget {
       this.price = 0,
       this.favriteontap,
       this.icon,
-      this.ontap
-      })
+      this.ontap,
+      this.cartontap})
       : super(key: key);
 
   @override
@@ -93,7 +95,7 @@ class _ReusebleContainerState extends State<ReusebleContainer> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: widget.cartontap,
                       child: Container(
                           height: 20,
                           width: 100,

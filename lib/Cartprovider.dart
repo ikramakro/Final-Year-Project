@@ -1,10 +1,13 @@
-import 'dart:developer';
+// ignore: file_names
+
+// ignore_for_file: file_names, duplicate_ignore
 
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartProvider with ChangeNotifier {
   int _counter = 0;
+  int quantity = 0;
   // ignore: non_constant_identifier_names
   int get Counter => _counter;
 
@@ -60,5 +63,11 @@ class CartProvider with ChangeNotifier {
   int getTotalprice() {
     getPrefitems();
     return _totalprice;
+  }
+
+  incremetQuantity() {
+    
+    quantity++;
+    notifyListeners();
   }
 }

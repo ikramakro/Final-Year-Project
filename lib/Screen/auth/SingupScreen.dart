@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -26,7 +28,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final _auth = FirebaseAuth.instance;
   final dbreference = FirebaseDatabase.instance.ref('User');
 
-  GlobalKey<FormState> _formKey = GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class Cart {
   final String name;
   final String image;

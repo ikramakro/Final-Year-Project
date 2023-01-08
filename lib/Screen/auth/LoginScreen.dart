@@ -1,4 +1,5 @@
-import 'package:alan_voice/alan_voice.dart';
+// ignore_for_file: file_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +9,6 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:fyp/Screen/Onboarding_Screen/Onboarding_Screen.dart';
 import 'package:fyp/UI/Components/Login/Topsection.dart';
 import 'package:fyp/Util/Colors.dart';
-import 'package:fyp/Screen/Home_Screen/HomeScreen.dart';
 import '../../UI/Components/MyText.dart';
 import 'SingupScreen.dart';
 
@@ -55,9 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController emailcontroler = TextEditingController();
   TextEditingController passwordcontroler = TextEditingController();
-  GlobalKey<FormState> _formKey = GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {

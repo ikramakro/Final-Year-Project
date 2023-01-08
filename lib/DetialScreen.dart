@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class ItemDetailScreen extends StatelessWidget {
       required this.name,
       required this.des,
       required this.price});
-  var intheight = Random().nextInt(10) + 20;
+  var intheight = Random().nextInt(1) + 5;
   var inthealthy = Random().nextInt(10) + 90;
   var intwidth = Random().nextInt(10) + 10;
   @override
@@ -29,9 +31,19 @@ class ItemDetailScreen extends StatelessWidget {
           // width: 300,
           child: Padding(
             padding: const EdgeInsets.only(top: 70, left: 0),
-            child: Image.network(
-              image,
-              fit: BoxFit.fitHeight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 300,
+                  width: 400,
+                  child: Image.network(
+                    image,
+                    fit: BoxFit.fitHeight,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
